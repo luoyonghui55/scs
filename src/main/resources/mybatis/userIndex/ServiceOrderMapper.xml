@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ServiceOrderMapper">
+	<resultMap type="ServiceOrder" id="serviceOrderResultMap">
+		<id column="so_id" property="soId" javaType="string" jdbcType="VARCHAR"/>
+		<id column="so_bill_number" property="soBillNumber" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_name" property="soName" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_order_date" property="soOrderDate" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_service_date" property="soServiceDate" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_service_type" property="soServiceType" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_cityid" property="soCityid" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_areaid" property="soAreaid" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_address" property="soAddress" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_phone" property="soPhone" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_amount" property="soAmount" javaType="double" jdbcType="DOUBLE"/>
+		<result column="so_desc" property="soDesc" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_lng" property="soLng" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_lat" property="soLat" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_user_id" property="soUserId" javaType="string" jdbcType="VARCHAR"/>
+		<result column="so_payment_way" property="soPaymentWay" javaType="byte" jdbcType="TINYINT"/>
+		<result column="so_status" property="soStatus" javaType="byte" jdbcType="TINYINT"/>
+		<result column="so_html_path" property="soHtmlPath" javaType="string" jdbcType="VARCHAR"/>
+	</resultMap>
+	<!-- 获取服务订单信息，前台页面使用 -->
+	<select id="serviceOrderlistPage" parameterType="page" resultType="pd" useCache="true">
+		SELECT so_id,so_bill_number,so_name,so_user_id,date_format(O.so_order_date,'%Y-%m-%d %H:%I:%S') so_order_date,
+		date_format(O.so_service_date,'%Y-%m-%d %H:%I:%S') so_service_date,p.province,so_cityid,c.city,so_areaid,a.area,
+		so_address,CONCAT(LEFT(so_phone,3),'****',RIGHT(so_phone,4)) so_phone,CONCAT(so_amount,'') so_amount,so_lat,SD.NAME service_type_name,
+		so_lng,CONCAT(so_payment_way,'') so_payment_way,CONCAT(so_status, '') so_status,so_html_path
+		from cor_service_order o,ui_dis_provinces p,ui_dis_cities c, ui_dis_areas a, sys_dictionaries SD 
+		where c.provinceid=p.provinceid and o.so_cityid=c.cityid AND o.so_areaid=a.areaid
+		AND o.so_status=#{pd.so_status} AND c.cityid=#{pd.cityid} AND o.so_service_type=SD.P_BM
+		AND SD.PARENT_ID IN (SELECT ZD_ID FROM sys_dictionaries WHERE BIANMA='SERVICE_TYPE')
+		<if test="pd.so_name != null and pd.so_name != ''"><!-- 标题检索 -->
+			and o.so_name like CONCAT(CONCAT('%', #{pd.so_name}),'%') 
+		</if>
+		<if test="pd.so_service_type!=null and pd.so_service_type!=''">
+			and o.SO_SERVICE_TYPE = #{pd.so_service_type}
+		</if>
+		<if test="pd.so_areaid!=null and pd.so_areaid!=''">
+			and o.SO_AREAID = #{pd.so_areaid}
+		</if>
+		 ORDER BY so_service_date DESC
+	</select>
+	<!-- myServiceOrderlistPage的WHERE语句 -->
+	<sql id="myServiceOrderWhere">
+		AND o.so_service_type=SD.P_BM AND O.so_user_id=U1.USER_ID 
+		AND SD.PARENT_ID IN (SELECT ZD_ID FROM sys_dictionaries WHERE BIANMA='SERVICE_TYPE')
+		<if test="pd.so_name != null and pd.so_name != ''"><!-- 标题检索 -->
+			and o.so_name like CONCAT(CONCAT('%', #{pd.so_name}),'%') 
+		</if>
+		<if test="pd.so_status != null and pd.so_status != ''">
+			and o.so_status=#{pd.so_status} 
+		</if>
+		<if test="pd.so_user_id != null and pd.so_user_id != ''">
+			and o.so_user_id=#{pd.so_user_id} 
+		</if>
+		<if test="pd.so_get_user != null and pd.so_get_user != ''">
+			and o.so_get_user=#{pd.so_get_user} 
+		</if>
+		<if test="pd.soStartOrderDate != null and pd.soStartOrderDate != ''">
+			and o.so_order_date &gt;= #{pd.soStartOrderDate} 
+		</if>
+		<if test="pd.soEndOrderDate != null and pd.soEndOrderDate != ''">
+			and o.so_order_date &lt;= #{pd.soEndOrderDate} 
+		</if>
+		<if test="pd.soStartServiceDate != null and pd.soStartServiceDate != ''">
+			and o.so_service_date &gt;= #{pd.soStartServiceDate} 
+		</if>
+		<if test="pd.soEndServiceDate != null and pd.soEndServiceDate != ''">
+			and o.so_service_date &lt;= #{pd.soEndServiceDate} 
+		</if>
+		<if test="pd.soStartRobDate != null and pd.soStartRobDate != ''">
+			and o.so_rob_date &gt;= #{pd.soStartRobDate} 
+		</if>
+		<if test="pd.soEndRobDate != null and pd.soEndRobDate != ''">
+			and o.so_rob_date &lt;= #{pd.soEndRobDate} 
+		</if>
+	</sql>
+	<!-- 获取我的服务订单信息，前台页面使用 -->
+	<select id="myServiceOrderlistPage" parameterType="page" resultType="pd" useCache="true">
+		select * from (
+		SELECT so_bill_number,so_name,so_user_id,date_format(O.so_order_date,'%Y-%m-%d %H:%I:%S') so_order_date,
+		date_format(O.so_service_date,'%Y-%m-%d %H:%I:%S') so_service_date,so_status,U1.PHONE issue_phone,
+		so_address,so_phone,CONCAT(so_amount,'') so_amount,SD.NAME service_type_name,U2.PHONE rob_phone,
+		CONCAT(so_payment_way,'') so_payment_way,so_html_path
+		from cor_service_order o,sys_dictionaries SD,sys_app_user U1, sys_app_user U2 WHERE O.so_get_user=U2.USER_ID 
+		<include refid="myServiceOrderWhere"></include>
+		union all 
+		SELECT so_bill_number,so_name,so_user_id,so_order_date,so_service_date,so_status,U1.PHONE issue_phone,
+		so_address,so_phone,CONCAT(so_amount,'') so_amount,SD.NAME service_type_name,'' rob_phone,
+		CONCAT(so_payment_way,'') so_payment_way,so_html_path
+		from cor_service_order o,sys_dictionaries SD,sys_app_user U1 WHERE o.so_get_user is null 
+		<include refid="myServiceOrderWhere"></include>
+		) m ORDER BY so_service_date DESC
+	</select>
+	<!-- 获取服务订单信息，系统后台页面使用 -->
+	<select id="serviceOrderAlllistPage" parameterType="page" resultType="pd">
+		SELECT so_id,so_bill_number,so_name,so_user_id,date_format(O.so_order_date,'%Y-%m-%d %H:%I:%S') so_order_date,
+		date_format(O.so_service_date,'%Y-%m-%d %H:%I:%S') so_service_date,p.province,so_cityid,u.USERNAME,
+		c.city,so_areaid,a.area,so_address,so_phone,CONCAT(so_amount,'') so_amount,so_lat,u.PHONE,
+		so_lng,CONCAT(so_payment_way,'') so_payment_way,CONCAT(so_status, '') so_status,so_html_path
+		from cor_service_order o,ui_dis_provinces p,ui_dis_cities c, ui_dis_areas a ,sys_app_user u 
+		where c.provinceid=p.provinceid and o.so_cityid=c.cityid AND o.so_areaid=a.areaid and o.so_user_id=u.USER_ID
+		<if test="pd.so_name != null and pd.so_name != ''"><!-- 标题检索 -->
+			and o.so_name like CONCAT(CONCAT('%', #{pd.so_name}),'%') 
+		</if>
+		<if test="pd.username != null and pd.username != ''"><!-- 标题检索 -->
+			and (u.username like CONCAT(CONCAT('%', #{pd.username}),'%') OR U.PHONE=#{pd.username})
+		</if>
+		<if test="pd.startDate != null and pd.startDate != ''">
+			AND o.so_order_date &gt;= #{pd.startDate}
+		</if>
+		<if test="pd.endDate != null and pd.endDate != ''">
+			AND o.so_order_date &lt;= #{pd.endDate}
+		</if>
+		<if test="pd.so_status!=null and pd.so_status != ''">
+			and O.so_status = #{pd.so_status}
+		</if>
+		<if test="pd.so_province != null and pd.so_province != ''">
+			AND O.so_cityid IN (SELECT cityid FROM ui_dis_cities WHERE provinceid=#{pd.so_province})
+		</if>
+		<if test="pd.so_city!=null and pd.so_city!=''">
+			and O.so_cityid = #{pd.so_city}
+		</if>
+		<if test="pd.so_area!=null and pd.so_area!=''">
+			and o.SO_AREAID = #{pd.so_area}
+		</if>
+		 ORDER BY so_order_date DESC
+	</select>
+	<!-- 保存订单 -->
+	<select id="saveServiceOrder" parameterType="ServiceOrder">
+		insert into cor_service_order(so_id,so_bill_number,so_name,so_order_date,so_service_date,so_service_type,
+		so_cityid,so_areaid,so_address,so_phone,so_amount,so_desc,so_lng,so_lat,so_user_id,so_payment_way)
+		VALUES (#{soId},#{soBillNumber},#{soName},#{soOrderDate},#{soServiceDate},#{soServiceType},#{soCityid},#{soAreaid}
+		,#{soAddress},#{soPhone},#{soAmount},#{soDesc},#{soLng},#{soLat},#{soUserId},#{soPaymentWay})
+	</select>
+	<!-- 根据ID获取订单 -->
+	<select id="getServiceOrderById" resultMap="serviceOrderResultMap" parameterType="pd">
+		SELECT * FROM cor_service_order WHERE 1=1 
+		<if test="status!=null and status!=''">
+			and so_status = #{status}
+		</if>
+		AND so_bill_number=#{soBillNumber} 
+	</select>
+	<!-- 通过订单号获取订单信息,注：此方法使用了行级锁，在非涉及高并发安全问题时，不可使用此方法 -->
+	<select id="getServiceOrderByBillNumber" resultMap="serviceOrderResultMap" parameterType="pd">
+		SELECT * FROM cor_service_order WHERE so_bill_number=#{soBillNumber} and so_status = #{status} FOR UPDATE
+	</select>
+	<!-- 修改 START TRANSACTION; commit;-->
+	<update id="editServiceOrder" parameterType="pd">
+		update cor_service_order
+		<set>
+			<if test="soStatus != null and soStatus != ''">so_status = #{soStatus},</if>
+			<if test="so_get_user!=null and so_get_user!=''">so_get_user = #{so_get_user},</if>
+		</set>
+		<where>
+			<if test="so_user_id!=null and so_user_id!=''">and so_user_id=#{so_user_id}</if>
+			<if test="so_status !=null and so_status !=''">and so_status=#{so_status}</if>
+			<if test="no_so_get_user !=null and no_so_get_user !=''">and so_get_user!=#{no_so_get_user}</if>
+			<if test="no_so_user_id !=null and no_so_user_id !=''">and so_user_id!=#{no_so_user_id}</if>
+			<if test="so_get_user !=null and so_get_user !=''">and so_get_user=#{so_get_user}</if>
+			<if test="billNumber!=null and billNumber!=''">and so_bill_number=#{billNumber}</if>
+		</where>
+	</update>
+	<!-- 修改 START TRANSACTION; commit;-->
+	<update id="editServiceOrderState" parameterType="pd">
+		update cor_service_order
+			set so_status     = #{so_status},
+			    so_get_user   = #{so_get_user},
+			    so_rob_date   = #{so_rob_date}
+		where so_bill_number=#{so_bill_number}
+	</update>
+	<!-- 我赚到的总金额 -->
+	<select id="myMakeMoney" resultType="java.lang.Long" parameterType="pd">
+		SELECT so_amount FROM cor_service_order WHERE so_status='2' AND so_get_user=#{userName} 
+			UNION ALL 
+		SELECT 0 AS so_amount FROM DUAL WHERE NOT EXISTS(SELECT 1 FROM cor_service_order WHERE so_status='2' 
+		AND so_get_user=#{userName})
+	</select>
+</mapper>

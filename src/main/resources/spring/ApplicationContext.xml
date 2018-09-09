@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:util="http://www.springframework.org/schema/util
+				http://www.springframework.org/schema/util/spring-util.xsd"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/cache 
+						http://www.springframework.org/schema/cache/spring-cache.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/util
+http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	<!-- 启用注解 -->
+	<context:annotation-config />
+	
+	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
+	<context:component-scan base-package="com.hjlc">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">   
+    	<property name="dataSource" ref="dataSource"></property>
+ 	</bean>
+	<!-- 配置 读取properties文件 jdbc.properties
+	<context:property-placeholder location="classpath:jdbc.properties" /> -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+                 <value>/WEB-INF/classes/dbconfig.properties</value>
+            </list>
+        </property>
+	</bean>
+	<!-- 
+	StatFilter属性slowSqlMillis用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢。
+	slowSqlMillis的缺省值为3000，也就是3秒。
+	mergeSql:sql统计合并，如：select * from t where id=1和select * from t where id=2被视为一条
+	 -->
+	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+	    <property name="slowSqlMillis" value="10000" />
+	    <property name="logSlowSql" value="true" />
+	    <property name="mergeSql" value="true" />
+	</bean>
+	<!-- 阿里 druid数据库连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">  
+         <!-- 数据库基本信息配置 -->
+         <property name="url" value="${url}" />
+         <property name="username" value="${username}" />
+         <property name="password" value="${password}" />
+         <property name="driverClassName" value="${driverClassName}" />
+         <!-- myloe，密码经过druid加密，加密步骤：
+         1、切换到有druid.jar的目录下，
+         2、执行如下命令：
+         java -cp druid-0.2.23.jar com.alibaba.druid.filter.config.ConfigTools you_password
+         3、配置：
+         <property name="filters" value="config" />
+         <property name="connectionProperties" value="config.decrypt=true" />
+          -->
+         <!-- wall：防SQL注入,config：解密密码,stat：SQL：统计监控信息,log4j：日志记录JDBC执行的SQL -->
+         <property name="filters" value="${filters}" />
+         <property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${publickey}" />
+   		 <!-- 最大并发连接数 -->
+         <property name="maxActive" value="${maxActive}" />
+         <!-- 初始化连接数量 -->
+         <property name="initialSize" value="${initialSize}" />
+         <!-- 配置获取连接等待超时的时间 -->
+         <property name="maxWait" value="${maxWait}" />
+         <!-- 最小空闲连接数 -->
+         <property name="minIdle" value="${minIdle}" />
+   		 <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+         <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}" />
+         <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+         <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}" />
+         <property name="validationQuery" value="${validationQuery}" />
+         <property name="testWhileIdle" value="${testWhileIdle}" />
+         <property name="testOnBorrow" value="${testOnBorrow}" />
+         <property name="testOnReturn" value="${testOnReturn}" />
+         <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}" />
+         <!-- 打开removeAbandoned功能 -->
+         <property name="removeAbandoned" value="${removeAbandoned}" />
+         <!-- 1800秒，也就是30分钟 -->
+         <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}" />
+         <!-- 关闭abanded连接时输出错误日志 -->   
+         <property name="logAbandoned" value="${logAbandoned}" />
+         <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+	     <property name="poolPreparedStatements" value="${poolPreparedStatements}" />
+	     <property name="maxPoolPreparedStatementPerConnectionSize" value="${maxPoolPreparedStatementPerConnectionSize}" />
+         <property name="proxyFilters">
+         	<list>
+         		<ref bean="stat-filter"/>
+         	</list>
+         </property>
+	</bean>
+	<!-- 定义事务策略 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 传播行为 -->
+			<tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<!-- 事物处理 -->
+	<aop:config>
+		<!--pointcut元素定义一个切入点，execution中的第一个星号 用以匹配方法的返回类型。 
+		com.abc.dao.*.*(..)表明匹配cn.itcast.mybatis.service包下的所有类的所有方法 
+		<aop:pointcut id="myPointcut" expression="execution(* com.hjlc.service.*.*(..))" />-->
+		<aop:pointcut id="pc" expression="execution(* com.hjlc.*.service..*(..))" />
+		<!--将定义好的事务处理策略应用到上述的切入点 -->
+		<aop:advisor pointcut-ref="pc" advice-ref="txAdvice" />
+	</aop:config>
+	
+	<!-- 配置mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"></property>
+        <!-- mapper扫描 -->
+        <property name="mapperLocations" value="classpath:mybatis/*/*.xml"></property>
+    </bean>
+    
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- ================ Shiro start ================ -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- <property name="cacheManager" ref="shiroEhCacheManager" /> -->
+		<property name="realm" ref="ShiroRealm" />
+	</bean>
+	
+	<!-- 項目自定义的Realm -->
+    <bean id="ShiroRealm" class="com.hjlc.system.interceptor.shiro.ShiroRealm"></bean>
+	<!-- <bean id="pageFormAuthenticationFilter" class="com.hjlc.system.filter.PageFormAuthenticationFilter"></bean> -->
+	<bean id="loginFilter" class="com.hjlc.system.filter.LoginFilter"></bean>
+	<!-- Shiro Filter -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- <property name="loginUrl" value="/login_toLogin" /> -->
+		<property name="loginUrl" value="/" />
+		<property name="successUrl" value="/main/index" />
+		<property name="unauthorizedUrl" value="/login_toLogin" />
+		<property name="filters">
+			<map>
+				<entry key="sessionexp" value-ref="loginFilter"/>
+			</map>
+		</property>
+		<!-- /static/js/** 		= anon 
+		/static/login/** 	= anon-->
+		<property name="filterChainDefinitions">
+			<value>
+				/static/js/myjs/** 			= authc
+				/static/** 	   	    		= anon
+	           	/code.do 					= anon
+	           	/login_login	 			= anon
+	           	/login_toLogin	 			= anon
+	           	/xccm/**	 		  	    = anon
+	           	/app**/** 					= anon
+	           	/weixin/** 					= anon
+	           	/userIndex/**       		= anon
+	           	/userPages/**       		= anon
+	           	/**							= sessionexp,authc
+			</value>
+		</property>
+	</bean>
+	<!-- 缓存管理器 使用Ehcache实现 -->  
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">  
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>  
+    </bean>  
+	<!-- ================ Shiro end ================ -->
+	
+	<!-- ================  ehcahe缓存配置  start  =============== -->
+	<!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+	<cache:annotation-driven cache-manager="ehcacheManager"/>
+	<!-- cacheManager工厂类，指定ehcache.xml的位置 -->
+	<bean id="ehcacheManagerFactory" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+		<property name="shared" value="true"/>
+	</bean>
+	<!-- 声明cacheManager -->
+	<bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehcacheManagerFactory" />
+	</bean>
+	<!-- ================  ehcahe缓存配置  end  =============== -->
+	
+</beans>

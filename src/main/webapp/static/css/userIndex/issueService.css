@@ -1,0 +1,28 @@
+.page-top-tip{width: 440px;position: absolute;left:30px;top: 5px;background: #fff none repeat scroll 0 0;border: 1px solid #ccc;margin: 10px auto;padding: 6px;font-size: 14px;}
+form.order-form {background-color: #178fbe;padding: 0px;width: 960px;margin: auto;height: 100%;}
+form.order-form fieldset {border: none;margin-bottom: 10px;padding-top: 20px;}
+form.order-form fieldset:last-of-type { margin-bottom: 0; }
+form.order-form .service-title {color: white;font-size: 16px;font-weight: bold;padding: 20px;padding-left: 40px;text-shadow: 0 1px 1px #c0d576;}
+form.order-form > fieldset > legend:before {content: "Step " counter(fieldsets) ": ";counter-increment: fieldsets;}
+form.order-form ol li {
+    /*background: #b9cf6a;
+    background: rgba(255, 255, 255, .3);
+    border-color: #e3ebc3;*/
+    border-color: rgba(255, 255, 255, .6);border-style: solid;border-width: 2px;-webkit-border-radius: 5px;
+    border-radius: 5px;-moz-border-radius: 5px;line-height: 30px;list-style: none;padding: 5px 10px;margin-bottom: 2px;width: 860px;
+}
+form.order-form label {float: left;font-size: 16px;font-weight: bold;color: white;}
+form.order-form fieldset fieldset label:hover {cursor: pointer; }
+form.order-form input:not([type=radio]), form#payment textarea {background: #ffffff; border: white solid 2px;-webkit-border-radius: 3px;border-radius: 3px;-moz-border-radius: 3px;font: italic 16px Georgia, "Times New Roman", Times, serif;outline: none;padding: 5px;width: 300px;}
+form.order-form .right-span{float: right;}
+form.order-form input:not([type=submit]):focus, form#payment textarea:focus {border: #FC3 solid 2px;}
+form.order-form .service-type {height: 33px;font-size: 16px;width: 315px;border: white solid 2px;-webkit-border-radius: 3px;border-radius: 3px;-moz-border-radius: 3px;}
+form.order-form .btn-issue-service{width: 120px;line-height: 60px;font-size: 20px;margin-right: 39px;}
+.scs-amap-layer .btn-sure-address{width: 45px;line-height: 24px;font-size: 16px;margin-left:-1px;}
+form.order-form .btn-issue-service, .scs-amap-layer .btn-sure-address{float: right;font-weight: bolder;border: 0px;cursor: pointer;color: white;background: url(../../../static/images/userIndex/menu-row-tail.gif) center bottom repeat-x;}
+/**遮罩层和地图显示**/
+.mask-layer{width: 100%;height: 100%;background: #000;opacity: .8;position: fixed;top: 0;left: 0;z-index: 10;display: none;}
+.scs-amap-layer{width: 80%;height: 80%;position: fixed;left: 10%;z-index: 110;top: 10%;display: none;background: #fff;border-radius:11px;}
+.close-mask-layer{display: block;width: 26px;height: 26px;position: absolute;right: 0px;z-index: 111;cursor: pointer;}
+#errorMsg{color: red;float: right;font-size: 16px; margin-right: 60px;font-weight: bold;}
+form.order-form span{font-size: 16px; color: #ffffff; font-weight: bold;}

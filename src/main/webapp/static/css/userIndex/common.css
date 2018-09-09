@@ -1,0 +1,52 @@
+a, body,form,u, ul, center, div, dt, em, embed,fieldset, font, footer,
+header, html,iframe, img, label, nav, span, strong, table, tbody, tfoot, thead, th{background: transparent;border: 0 none;margin: 0;padding: 0;border: 0;outline: 0;vertical-align: top;}
+/* 清除列表默认样式 */
+ol, ul, li {list-style: none;}
+/* 设置链接默认样式 */
+a{text-decoration:none;color:#4a4a4a;transition:color 0.2s;-webkit-transition: color 0.2s;
+	-moz-transition: color 0.2s;-ms-transition: color 0.2s;-o-transition: color 0.2s;}
+/*表格边框合并*/
+table, table td {padding:0;	border:none;border-collapse:collapse;}
+img , embed{vertical-align:top;}
+body,html{/*rgba(239, 239, 239, 0.64)*/
+	background-color: #efefef;font-size: 14px; outline: none;margin: 0; padding: 0; min-width: 960px;
+	width: 100%; height: 100%;font-family:Arial, Helvetica, sans-serif; color:#333;
+}
+/*禁止FF等浏览器给textarea增加可拖拽大小的设置*//*图片无边框*/
+textarea {resize: none;}img {border: none;}
+/*修复火狐按钮文字不垂直居中的bug*/
+input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {border:none;padding:0;}
+
+/*----header start-----*/
+.main {	width:960px;padding:0;margin:0 auto;font-size:0.8125em;	line-height:1.3846em;}
+.wrapper {overflow:hidden; position:relative;}
+.menu li a, .service-type-distance a {cursor: pointer;}header {width:100%;position:relative; z-index:2;}
+.row-top {width:100%;height:89px;overflow:hidden;background:url(../../../static/images/userIndex/row-top.gif) center top repeat-x;}
+.top-logo {padding:38px 0 0 0px; position:relative; float:left;height:90px;}
+.top-logo a {color:#ffffff;font-size: 120px;font-weight: bolder;font-style: italic;}
+/*----header end-----*/
+
+/***** menu start *****/
+.menu-row {width:100%;	background:url(../../../static/images/userIndex/menu-row-tail.gif) center top repeat-x #178fbe;}
+.menu {padding:0 0 0 0; background:url(../../../static/images/userIndex/menu-spacer.gif) left top no-repeat;}
+.menu li {float:left; position:relative;padding-right:2px;background:url(../../../static/images/userIndex/menu-spacer.gif) right top no-repeat;}
+.menu li a {display:block;font-size:18px;line-height:3em;width:190px;padding:8px 0 8px;
+	text-align:center;color:#fff;text-transform:uppercase;letter-spacing:-1px;font-weight: bolder;}
+.menu .user-register,.menu .user-login{	width: 95px; float: left;}
+.menu li.active a, .menu > li > a:hover {color:#000}
+/***** menu end *****/
+/*当前城市*/
+.current-city{float: right; margin-top: 64px;color: white;font-size: 18px;}
+.current-city a{color: white; font-weight: bolder;border-bottom: solid;}
+.row-top #IamLogout{font-size: 18px;float:right;color: white;text-decoration: underline;font-weight: bolder;margin-top: 10px;}
+/*页面尾部*/
+.footer{width: 100%;background-color: #f7ca8e;	height: 154px;}
+.footer .footer_info div{float: left;margin-left: 60px;}
+.footer_info {width: 960px;	margin: 0px auto;padding-top: 10px;}
+.footer .footer_info .footer-about-us a{line-height: 25px;}
+.footer .footer_info .footer-about-us a:hover{font-weight: bolder;}
+.footer-record{color: #4a4a4a;margin-top: 20px;}
+.footer .footer_info .footer-care-us img{height: 120px;width: 120px;}
+.footer .footer_info .footer-contact-us span{color: #4a4a4a;line-height: 25px;}
+.loading{text-align:center;z-index: 9100;position:fixed;top:40%;left:45%;display: none;}
+.loading span{font-size: 20px;font-weight:bolder;color: white;}

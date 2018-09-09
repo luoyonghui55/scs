@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AppUserMapper">
+	<resultMap type="com.hjlc.userIndex.model.AppUser" id="AppUserResultMap">
+		<id column="USER_ID" property="userId"/>
+		<result column="USERNAME" property="userName"/>
+		<result column="PASSWORD" property="passWord"/>
+		<result column="NAME" property="name"/>
+		<result column="RIGHTS" property="rights"/>
+		<result column="ROLE_ID" property="roleId"/>
+		<result column="LAST_LOGIN" property="lastLogin"/>
+		<result column="BZ" property="bz"/>
+		<result column="PHONE" property="phone"/>
+		<result column="SFID" property="sfid"/>
+		<result column="START_TIME" property="startTime"/>
+		<result column="END_TIME" property="endTime"/>
+		<result column="YEARS" property="years"/>
+		<result column="NUMBER" property="number"/>
+		<result column="EMAIL" property="email"/>
+	</resultMap>
+	
+	<select id="findByNameAndPassword" resultMap="AppUserResultMap" parameterType="String">
+		select USER_ID,USERNAME,PHONE,STATUS FROM sys_app_user where PASSWORD=#{PASSWORD} AND USERNAME=#{USERNAME}
+		UNION ALL
+		select USER_ID,USERNAME,PHONE,STATUS FROM sys_app_user where
+		NOT EXISTS(select 1 FROM sys_app_user where PASSWORD=#{PASSWORD} AND USERNAME=#{USERNAME})
+		AND PASSWORD=#{PASSWORD} AND PHONE=#{USERNAME}
+	</select>
+	
+	<insert id="saveAppUser" parameterType="pd">
+		insert into sys_app_user(
+			USER_ID,USERNAME,PASSWORD,NAME,RIGHTS,ROLE_ID,LAST_LOGIN,BZ,
+			PHONE,SFID,START_TIME,END_TIME,YEARS,NUMBER,EMAIL)
+		values(
+			(SELECT A FROM (SELECT LPAD(MAX(USER_ID)+1,(10-LENGTH(MAX(USER_ID)+1)),0) A FROM sys_app_user) AS B),
+			#{USERNAME},#{PASSWORD},#{NAME},#{RIGHTS},#{ROLE_ID},#{LAST_LOGIN},
+			#{BZ},#{PHONE},#{SFID},#{START_TIME},#{END_TIME},#{YEARS},#{NUMBER},#{EMAIL})
+	</insert>
+	
+	<!-- 根据手机号查询 -->
+	<select id="findByMobile" resultMap="AppUserResultMap" parameterType="pd">
+		select 
+			USER_ID,USERNAME,PASSWORD
+		from
+			sys_app_user
+		where
+			PHONE=#{PHONE}
+	</select>
+	
+</mapper>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>切换城市</title>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="static/images/userIndex/favicon.ico" />
+<style type="text/css">
+    body{background: url("../../static/images/front/city_list.jpg") repeat;background-size: 100%;}
+    .city-list-body, .city-list{
+        width: 70%;margin: 90px auto 0 auto;background-color: white;
+    }
+    .provinces, .hot-city{
+        margin: 25px 20px 0px 20px;
+    }
+    .city-list-title{
+        font-size: 24px;font-weight: bolder;	background:url(../../static/images/front/menu-row-tail.gif) center top repeat-x;
+        width: 100%;color: white;position: fixed;height: 71px;line-height: 71px;left: 0px;top: 20px;
+    }
+    .hot-city-list,.provinces-list{margin-top: 10px; }
+    .hot-city-list a, .provinces a{margin-left: 10px;margin-right:10px;font-weight: bolder;cursor: pointer; line-height: 30px;}
+    .provinces a, .city-set a{width: 70px;display: inline-block;margin-left: 0px;margin-right:0px;text-align:center; vertical-align: middle;}
+    .selected-province{background:url(../../static/images/front/menu-row-tail.gif) center top repeat-x;color: white;}
+    .city-list{height: 200px; margin-top: 5px; }
+    .city-set{padding: 20px;}
+    .city-set a{width: auto; margin-left: 15px; line-height: 30px; cursor: pointer;border-bottom: solid moccasin;}
+    .city-set a:hover{font-weight: bolder;}
+    .back{padding: 35px;}
+    .btn-back{border: 0px; background:url(../../static/images/front/menu-row-tail.gif) center top repeat-x; font-size: 24px;font-weight: bolder; color: white;cursor: pointer;}
+</style>
+<script type="text/javascript" src="../../static/plugins/js/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.provinces-list a').click(function(){
+            $('.selected-province').removeClass();
+            this.className = 'selected-province';
+        });
+    });
+</script>
+</head>
+<body>
+<span class="city-list-title">
+    <strong style="margin-left: 15%;">切换服务城市</strong>
+</span>
+<div class="city-list-body">
+    <div class="hot-city"><br>
+        <strong>热门城市：</strong>
+        <div class="hot-city-list">
+            <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+            <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+            <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+            <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+        </div>
+    </div>
+    <div class="provinces">
+        <strong>按省份选择地区</strong><br>
+        <div class="provinces-list">
+            <a>北京</a><a class="selected-province">湖南省</a><a>重庆市</a><a>河北省</a><a>河南省</a><a>新疆</a>
+            <a>广东省</a><a>浙江省</a><a>江西省</a><a>山东省</a><a>山西省</a>
+            <a>北京</a><a>湖南省</a><a>重庆市</a><a>河北省</a><a>河南省</a><a>新疆</a>
+            <a>广东省</a><a>浙江省</a><a>江西省</a><a>山东省</a><a>山西省</a>
+        </div>
+    </div><br>
+</div>
+<div class="city-list">
+    <div class="city-set">
+        <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+        <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+        <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+        <a>北京</a><a>上海</a><a>长沙</a><a>广州</a><a>深圳</a><a>成都</a>
+    </div>
+    <span class="back"><input type="button" onclick="javascript:history.go(-1);" class="btn-back" value=" 返  回 "></span>
+</div>
+</body>
+</html>

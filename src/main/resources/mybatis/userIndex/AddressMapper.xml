@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AddressMapper">
+	<!-- MyBatis缓存配置 
+	eviction是缓存的淘汰算法，可选值有"LRU"、"FIFO"、"SOFT"、"WEAK"，缺省值是LRU
+	flashInterval指缓存过期时间，单位为毫秒，60000即为60秒，缺省值为空，即只要容量足够，永不过期
+	size指缓存多少个对象，默认值为1024
+	readOnly是否只读，如果为true，则所有相同的sql语句返回的是同一个对象（有助于提高性能，但并发操作同一条数据时，可能不安全），
+	如果设置为false，则相同的sql，后面访问的是cache的clone副本。
+	-->
+	<cache readOnly="true" eviction="LRU" flushInterval="180000" size="600"/>
+	<!-- 获取省份信息列表 -->
+	<select id="listAllProvinces" parameterType="pd" resultType="pd" useCache="true">
+		SELECT provinceid,province from ui_dis_provinces WHERE 1=1
+		<if test="provinceid != null">
+			AND provinceid = #{provinceid}
+		</if>
+		<if test="province != null">
+			AND province = #{province}
+		</if>
+	</select>
+	<!-- 获取城市信息列表 -->
+	<select id="listAllCities" parameterType="pd" resultType="pd" useCache="true">
+		SELECT cityid,city,provinceid from ui_dis_cities WHERE 1=1
+		<!-- <if test="cityid != null">
+			AND cityid = #{cityid}
+		</if> -->
+		<if test="array != null and array.length > 0">
+			AND cityid in
+			<foreach item="cityId" index="index" collection="array" open="(" separator="," close=")">
+				#{cityId}
+			</foreach>
+		</if>
+		<if test="city != null">
+			AND city = #{city}
+		</if>
+		<if test="provinceid != null and provinceid != ''">
+			AND provinceid = #{provinceid}
+		</if>
+	</select>
+	<!-- 获取地区信息列表 -->
+	<select id="listAllArea" parameterType="pd" resultType="pd" useCache="true">
+		SELECT areaid,area,cityid from ui_dis_areas WHERE 1=1
+		<if test="areaid != null">
+			AND areaid = #{areaid}
+		</if>
+		<if test="area != null">
+			AND area = #{area}
+		</if>
+		<if test="cityid != null">
+			AND cityid = #{cityid}
+		</if>
+		<if test="idArray != null and idArray.length > 0">
+			AND cityid in
+			<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+	<!-- 通过城市名获取城市ID -->
+	<select id="findCityIdByName" parameterType="String" resultType="String" useCache="true">
+		SELECT cityid from ui_dis_cities WHERE city=#{item}
+	</select>
+</mapper>

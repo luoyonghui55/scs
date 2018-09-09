@@ -1,0 +1,43 @@
+.middle-main{margin-top: 0px;}
+.middle-main .container{height:auto; width: 960px; margin: auto;}
+/*定义付费内容的样式background-color: #178fbe;*/
+form.register-form {height: 100%; width: 540px;margin: auto;float: right;}
+.menu li .user-register{color:#000;}
+/*滚动 height:440px;*/
+.funnyNewsTicker{width:100%; overflow:hidden; padding:0 5px; box-sizing:border-box;}
+.funnyNewsTicker>ul{padding:0; margin:0; list-style-type:none; position:relative;}
+.funnyNewsTicker>ul>li{display:none; width:100%; height:100px; position:absolute; overflow:hidden;background:url(../../static/images/front/register_arrows_bg.png) center top repeat-x;}
+.funnyNewsTicker>ul>li>.fnt-content{position:absolute; top:0; bottom:30px; left:0; right:0; box-sizing:border-box; overflow:hidden;}
+.funnyNewsTicker>ul>li>.fnt-content a{text-decoration:none;}
+.funnyNewsTicker>ul>li>.fnt-content a:hover{text-decoration:underline;}
+.funnyNewsTicker>ul>li>div>img{width: 100%; height: 100%;}
+.funnyNewsTicker>ul>li>.fnt-info{position:absolute; bottom:0; left:0; right:0; height:20px; padding:5px;}
+.funnyNewsTicker>ul>li>.fnt-info span{position:absolute; left:80px; right:10px; text-align:center; opacity:0.4; z-index:0; font-size:13px; cursor:default;}
+.funnyNewsTicker>div{width:50px; height:30px; cursor:pointer; position:absolute; opacity:0.3;}
+.funnyNewsTicker>div:hover{opacity:1;}
+.funnyNewsTicker>div.fnt-top-arrow{top:0; background:url(../../../static/images/userIndex/fnt-arrows-black.png) top no-repeat;}
+.funnyNewsTicker>div.fnt-bottom-arrow{bottom:0; background:url(../../../static/images/userIndex/fnt-arrows-black.png) bottom no-repeat;}
+
+.funnyNewsTicker .fnt-top0{-ms-transform: scale(0.80); -webkit-transform: scale(0.85); transform: scale(0.85); opacity:0.85; top:0; z-index:1; display:block;}
+.funnyNewsTicker .fnt-top1{-ms-transform: scale(0.87); -webkit-transform: scale(0.9); transform: scale(0.9); opacity:0.9; top:20px; z-index:2; display:block;}
+.funnyNewsTicker .fnt-top2{-ms-transform: scale(0.95); -webkit-transform: scale(0.95); transform: scale(0.95); opacity:0.95; top:45px; z-index:3; display:block;}
+.funnyNewsTicker .fnt-active{-ms-transform: scale(1); -webkit-transform: scale(1); transform: scale(1); opacity:1; top:75px; z-index:10; display:block;}
+.funnyNewsTicker .fnt-bottom2{-ms-transform: scale(0.95); -webkit-transform: scale(0.95); transform: scale(0.95); opacity:0.95; top:105px; z-index:6; display:block;}
+.funnyNewsTicker .fnt-bottom1{-ms-transform: scale(0.87); -webkit-transform: scale(0.90); transform: scale(0.90); opacity:0.9; top:130px; z-index:5; display:block;}
+.funnyNewsTicker .fnt-bottom0{-ms-transform: scale(0.80); -webkit-transform: scale(0.85); transform: scale(0.85); opacity:0.85; top:150px; z-index:4; display:block;}
+
+.fnt-easing2{transition:.25s linear; -moz-transition:.25s linear; -webkit-transition:.25s linear;}
+.fnt-easing li{transition:.5s ease-out; -moz-transition:.5s ease-out; -webkit-transition:.5s ease-out;}
+.fnt-radius li{-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;}
+.fnt-radius2 li{-webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;}
+.fnt-shadow li{-webkit-box-shadow: 0px 0px 10px 0px rgba(100,100,100,0.3); -moz-box-shadow: 0px 0px 10px 0px rgba(100,100,100,0.3); box-shadow: 0px 0px 10px 0px rgba(100,100,100,0.3);}
+.fnt-shadow-big{-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5) !important; -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5) !important; box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5) !important;}
+
+.middle-main .container .register-div{background-color: #178fbe;width: 100%;float: right;height: 100%;}
+.register-title{font-size: 22px;font-weight: bolder;}
+.middle-main .register-form label{font-size: 18px;font-weight: bolder;}
+.middle-main .register-form ol li{line-height: 45px;}
+.middle-main .register-form ol li input{font-size: 20px;width: 260px;}
+.middle-main .register-form ol li input:hover{border: 2px solid #178fbe;}
+.middle-main .register-form ol li .btn-check-code{font-weight: bolder;cursor: pointer;margin-top: 6px;background-color: #178fbe;border: 2px solid #178fbe;color: white; float: right; width: 140px;}
+.middle-main .register-form .btn-now-register{font-size: 20px;font-weight: bolder;float: left;line-height: 38px;width: 150px;background: url(../../../static/images/userIndex/menu-spacer.gif) repeat-x;border: 0;color: white;cursor: pointer;}

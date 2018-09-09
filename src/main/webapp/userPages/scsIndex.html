@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>同城服务</title> 
+<meta charset="utf-8">
+<link rel="shortcut icon" href="static/images/userIndex/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/common.css">
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/index.css">
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/userLogin.css">
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.0&key=19a49e17b6eb9e0d69fa19de68cd27ed&plugin=AMap.CitySearch"></script>
+<script type="text/javascript" src="static/js/common/constant.js"></script>
+<script type="text/javascript" src="static/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="static/js/plugins/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="static/js/common/encryptAndDecrypt.js"></script>
+<script type="text/javascript" src="static/js/common/mapUtil.js"></script>
+<script type="text/javascript" src="static/js/common/dragCheck.js"></script>
+<script type="text/javascript" src="static/js/common/simpleTipsUtil.js"></script>
+<script type="text/javascript" src="static/js/plugins/encryption/scs_sha1.js"></script>
+<script type="text/javascript" src="static/js/userIndex/scsCommonIndex.js"></script>
+<script type="text/javascript" src="static/js/userIndex/userLogin.js"></script>
+<script type="text/javascript" src="static/js/userIndex/scsIndex.js"></script>
+<!-- <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script> -->
+</head>
+<body>
+<div id="aMapDiv" hidden="true"></div>
+<!--header-->
+<header>
+    <div class="row-top">
+        <div class="main">
+            <div class="wrapper top-logo">
+                <a href="javascript:void()">LGL</a>
+            </div>
+            <a style="display: none;" id="IamLogout" href="javascript:void()">退出</a>
+            <div class="current-city">您当前城市：<a id="myCity" onclick="javascript:getCurrentPosition();" href="cityList.html">长沙市</a></div>
+        </div>
+    </div>
+    <div class="menu-row">
+        <div class="menu-bg">
+            <div class="main">
+                <nav class="indent-left">
+                    <ul class="menu wrapper">
+                        <li class="active"><a href="javascript:void()">热门服务</a></li>
+                        <li><a href="userPages/issueService.html">发布服务</a></li>
+                        <li id="Myself">
+                            <a href="userPages/userRegister.html" class="user-register">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册</a>
+                            <a href="userPages/userLogin.html" class="user-login">登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li><a href="userPages/joinUs.html">JOIN US</a></li>
+                        <li><a href="userPages/commonProblems.html">常见问题</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 服务类型和地区选择 -->
+<div class="service-type-distance">
+    <div class="service-select-type">
+        <span class="service-category" style="margin-top: 15px;">服务类型：</span>
+        <div id="serviceType" class="service-type" style="padding-top: 13px;">
+            <a id="0" class="default-type">不限</a>
+        </div>
+    </div>
+    <div class="service-select-distinct">
+        <div class="service-category" style="margin-top: 5px;">服务区域：</div>
+        <div id="serviceDistance" class="service-distance" style="padding-bottom: 15px;padding-top: 3px;">
+            <a id="0" class="default-type">不限</a>
+        </div>
+    </div>
+</div>
+<!--搜索框-->
+<fieldset class="search-fieldset">
+    <div class="search-field">
+        <input id="searchServiceTitle" name="search" type="text" placeholder="输入标题..." />
+        <button class="search-button">搜索</button>
+    </div>
+</fieldset>
+<!-- 服务列表 -->
+<div id="serviceList" class="service-list" hidden="true"><br></div>
+
+<!-- 分页菜单 -->
+<div class="navigation">
+    <ol class="wp-paginate"></ol>
+</div>
+
+<!-- 页面尾部 -->
+<div id="footer" class="footer" style="margin-top: 80px;">
+    <div class="footer_info">
+        <div class="footer-care-us" style="margin-left: 0px;">
+            <strong>关注微信</strong><br/>
+            <!--微信扫一扫<br />-->
+            <img src="static/images/userIndex/weChat.png" />
+        </div>
+        <div class="footer-about-us">
+            <strong>关于九九</strong><br/>
+            <a href="userPages/aboutUs.html">关于我们</a><br/>
+            <a href="userPages/serviceAim.html">服务宗旨</a><br/>
+            <a href="userPages/feedback.html">意见反馈</a>
+        </div>
+        <div class="footer-contact-us">
+            <strong>联系我们</strong><br/>
+        <span>
+            客服电话：186-7078-7994<br />
+            服务邮箱：ijobvip@163.com<br />
+            公司地址：北京丰台区草桥东路
+        </span>
+        </div>
+        <div class="footer-record" style="float: right;">
+            京ICP备25697805号-4  京ICP证182661号  Copyright © 2015-2016
+        </div>
+    </div>
+</div>
+<!-- 用户登录 margin:-180px 0 0 -330px; -->
+<div id="middleMain" class="content" style="display: none;z-index:9006;position:fixed;top:10%;left:35%;height:480px;">
+    <img class="close-login" src="static/images/pic12.gif"/>
+    <div class="login-form">
+        <div class="username">
+            <input type="text" id="userName" placeholder="手机号或邮箱" autocomplete="on" />
+            <span class="user-icon icon">u</span>
+        </div>
+        <div class="password">
+            <input type="password" id="userPassword" placeholder="密码" />
+            <span class="password-icon icon">p</span>
+        </div> 
+        <div class="account-control">
+            <!--<input type="checkbox" name="Remember me" id="Remember me" value="记住我" checked="checked" />
+            <label for="Remember me" data-on="c" class="check"></label>
+            <label for="Remember me" class="info">记住我</label>-->
+            <!-- 登录滑动验证 -->
+            <div class="mkeContentBox">
+                <div id="drag"></div>
+                <script type="text/javascript">$('#drag').drag();</script>
+            </div>
+            <span id="errorPrompt"></span>
+            <button id="btnUserLogin">登录</button>
+        </div>
+        <p class="not-registered">还没有帐户?现在就去<a href="userPages/userRegister.html" style="color: rgb(74,162,241);font-weight: bolder;">注册</a></p>
+    </div>
+</div>
+<div class="loading">
+	<img width="128" height="128" src="static/images/userIndex/loading.gif" /><br><br>
+	<span id="loadingWord"></span>
+</div>
+<div class="page-mask"></div>
+</body>
+<script type="text/javascript">
+    $('.user-login').css('color','#fff');
+</script>
+<script type="text/javascript" src="static/js/common/commonHeaderPage.js"></script>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>我的服务订单</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="static/images/userIndex/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="static/css/userIndex/common.css">
+    <link type="text/css" rel="stylesheet" href="static/css/userIndex/myServiceOrder.css">
+    <link type="text/css" rel="stylesheet" href="static/js/plugins/jedate/skin/jedate.css">
+    <script type="text/javascript" src="static/js/plugins/jquery/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="static/js/plugins/jedate/jquery.jedate.min.js"></script>
+    <script type="text/javascript" src="static/js/common/constant.js"></script>
+    <script type="text/javascript" src="static/js/common/commonUtil.js"></script>
+    <script type="text/javascript" src="static/js/common/simpleTipsUtil.js"></script>
+    <script type="text/javascript" src="static/js/userIndex/myServiceOrder.js"></script>
+</head>
+<body>
+<!--header-->
+<header id="pageHeader">
+    <div class="row-top">
+        <div class="main">
+            <div class="wrapper top-logo">
+                <a href="/scs">LGL</a>
+            </div>
+            <a style="display: none;" id="IamLogout" href="javascript:void()">退出</a>
+        </div>
+    </div>
+    <div class="menu-row">
+        <div class="menu-bg">
+            <div class="main">
+                <nav class="indent-left">
+                    <ul class="menu wrapper">
+                        <li><a href="/scs">热门服务</a></li>
+                        <li><a href="issueService.html">发布服务</a></li>
+                        <li id="Myself" class="active">
+                        	<a href="userRegister.html" class="user-register">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册</a>
+                            <a href="userLogin.html" class="user-login">登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li><a href="joinUs.html">JOIN US</a></li>
+                        <li><a href="commonProblems.html">常见问题</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 发表服务表单 -->
+<div id="middleMain" class="middle-main">
+    <div id="leftMenu" class="left-menu">
+        <ul>
+            <li id="myIssueOrder" class="my-selected">发布订单&nbsp;&gt;</li>
+            <li id="myRobOrder" style="margin-top: 3px;">已抢订单&nbsp;&gt;</li>
+            <li id="myDeal" style="margin-top: 3px;">我的交易&nbsp;&gt;</li>
+        </ul>
+    </div>
+    <div class="order-detail">
+        <marquee scrollAmount=4 class="roll-word"></marquee>
+        <!-- =============发布订单================ -->
+        <!--搜索框-->
+        <fieldset id="issueServiceOrderSearch" class="search-fieldset">
+            <div class="search-field">
+                <input id="myIssueServiceTitle" name="search" class="search-title" type="text" value="输入标题..." onBlur="if(this.value=='') this.value='输入标题...'" onFocus="if(this.value =='输入标题...' ) this.value=''" />
+                <button id="btnIssueServiceSearch" class="search-button" style="float: right;">搜索</button>
+            </div>
+            <div class="issue-service-order-date">
+				<input type="text" size="8" id="myIssueServiceOrderDate">
+			</div><!-- id="serviceStatus"  -->
+            <div class="service-status">
+                <span class="service-status-selected" id="issueAllStatusServiceOrder">全部订单</span>
+                <span id="issueCompleteServiceOrder">已完成</span>
+                <!-- <span id="issueWaitPayServiceOrder">待付款</span> -->
+                <span id="issueWaitServiceServiceOrder">待服务</span>
+                <span id="issueWaitEvaluateServiceOrder">待评价</span>
+            </div>
+        </fieldset>
+        <!-- 详情表单 -->
+        <div id="issueServiceOrderDetailDiv" style="width:960px; overflow-x:scroll;">
+	        <table id="issueServiceOrderDetail" cellspacing="0" width="1200px">
+	            <thead>
+	                <tr>
+	                    <td width="120">订单号</td>
+	                    <td>标题</td>
+	                    <td width="185">发布时间</td>
+	                    <td>抢单人电话</td>
+	                    <td>金额</td>
+	                    <td width="400">地址</td>
+	                    <td>状态</td>
+	                    <td>操作</td><!-- class="fixed-column" -->
+	                </tr>
+	            </thead>
+	            <tfoot>
+	                <tr>
+	                    <td>本页总计</td>
+	                    <td><span id="myIssueServiceOrderTotalCount">0</span></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td><span id="myIssueServiceOrderTotalAmount">0</span></td>
+	                    <td></td><td></td><td></td>
+	                </tr>
+	            </tfoot>
+	            <tbody></tbody>
+	        </table>
+        </div>
+        <!-- 分页菜单 -->
+        <div id="issueServicePageToolbar" class="page-toolbar">
+            <ol id="issueServicePage" class="wp-paginate"></ol>
+        </div>
+        <!-- =============已抢订单================ -->
+        <!--搜索框-->
+        <fieldset id="robServiceOrderSearch" class="search-fieldset">
+            <div class="search-field">
+                <input id="myRobServiceTitle" name="search" class="search-title" type="text" value="输入标题..." onBlur="if(this.value=='') this.value='输入标题...'" onFocus="if(this.value =='输入标题...' ) this.value=''" />
+                <button class="search-button" style="float: right;">搜索</button>
+            </div>
+            <div class="issue-service-order-date">
+				<input type="text" size="8" id="myRobServiceOrderDate">
+			</div><!-- id="serviceStatus"  -->
+            <div class="service-status">
+                <span class="service-status-selected" id="robAllStatusServiceOrder">全部订单</span>
+                <span id="robCompleteServiceOrder">已完成</span>
+                <!-- <span id="robWaitPayServiceOrder">待付款</span> -->
+                <span id="robWaitServiceServiceOrder">待服务</span>
+                <span id="robWaitEvaluateServiceOrder">待评价</span>
+            </div>
+        </fieldset>
+        <!-- 详情表单 -->
+        <div id="robServiceOrderDetailDiv" style="width:960px; overflow-x:scroll;display: none;">
+	        <table id="robServiceOrderDetail" cellspacing="0" width="1200px">
+	            <thead>
+	                <tr>
+	                    <td width="120">订单号</td>
+	                    <td>标题</td>
+	                    <td width="185">发布时间</td>
+	                    <td>发布人电话</td>
+	                    <td>金额</td>
+	                    <td>地址</td>
+	                    <td>状态</td>
+	                    <td>操作</td>
+	                </tr>
+	            </thead>
+	            <tfoot>
+	                <tr>
+	                    <td>本页总计</td>
+	                    <td><span id="myRobServiceOrderTotalCount">0</span></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td><span id="myRobServiceOrderTotalAmount">0</span></td>
+	                    <td></td>
+	                    <td></td>
+	                    <td></td>
+	                </tr>
+	            </tfoot>
+	            <tbody></tbody>
+	        </table>
+        </div>
+        <!-- 分页菜单 -->
+        <div id="robServicePageToolbar" class="page-toolbar">
+            <ol id="robServicePage" class="wp-paginate"></ol>
+        </div>
+		<!--  ============我的交易================== -->
+        <!--搜索框-->
+        <fieldset id="myDealSearch" class="search-fieldset" style="margin-right: -22px;">
+            <div class="search-field">
+                <span>&nbsp;&nbsp;&nbsp;交易金额从</span>&nbsp;
+                <input class="deal-money" id="startDealMoney" type="number" />&nbsp;<span>到</span>&nbsp;
+                <input class="deal-money" id="endDealMoney" type="number" />
+                <button id="btnDealDetailSearch" class="search-button">搜索</button>
+            </div>
+            <div class="issue-service-order-date">
+				<input type="text" size="8" id="myDealLogDate">
+			</div>
+            <div id="dealType" class="deal-type">
+                <span id="allDealType" class="deal-type-selected">全部交易</span>
+                <span id="rechargeDealType">充值</span>
+                <span id="payDealType">支出</span>
+            </div>
+        </fieldset>
+        <div style="width:960px;">
+        <table id="myDealDetail" cellspacing="0" width="960px">
+            <thead>
+                <tr>
+                    <td>交易时间</td>
+                    <td>交易类型</td>
+                    <td>交易金额</td>
+                    <td>交易状态</td>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td>充值总金额</td>
+                    <td><span id="rechargeMoneyTotalAmount">0</span></td>
+                    <td>支出总金额</td>
+                    <td><span id="payMoneyTotalAmount">0</span></td>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+        </div>
+        <!-- <div id="myMoney" class="my-money">我的余额：<span>2093.00</span></div> -->
+        <!-- 分页菜单 -->
+        <div id="dealDetailPageToolbar" class="page-toolbar">
+            <ol id="dealDetailPage" class="wp-paginate"></ol>
+        </div>
+    </div>
+</div>
+
+<!-- 页面尾部 -->
+<div id="footer" class="footer" style="margin-top:68px;">
+    <div class="footer_info">
+        <div class="footer-care-us" style="margin-left: 0px;">
+            <strong>关注微信</strong><br/>
+            <!--微信扫一扫<br />-->
+            <img src="static/images/userIndex/weChat.png"/>
+        </div>
+        <div class="footer-about-us">
+            <strong>关于九九</strong><br/>
+            <a href="aboutUs.html">关于我们</a><br/>
+            <a href="serviceAim.html">服务宗旨</a><br/>
+            <a href="feedback.html">意见反馈</a>
+        </div>
+        <div class="footer-contact-us">
+            <strong>联系我们</strong><br/>
+            <span>
+                客服电话：186-7078-7994<br />
+                服务邮箱：ijobvip@163.com<br />
+                公司地址：北京丰台区草桥东路
+            </span>
+        </div>
+        <div class="footer-record" style="float: right;">
+            京ICP备25697805号-4  京ICP证182661号  Copyright © 2015-2016
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="static/js/common/commonHeaderPage.js"></script>
+</html>

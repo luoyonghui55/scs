@@ -1,0 +1,49 @@
+.middle-main{width: 960px; margin: 0 auto;}
+.middle-main .order-detail{margin-top: -230px;}
+.middle-main .order-detail .roll-word{width: 100%;background-color: white;font-size: 26px;font-weight: bolder;line-height: 54px;}
+/*----左侧菜单  start ------*/
+.left-menu{margin-left: -130px; margin-top: 112px;}
+.left-menu ul li{width: 130px; margin-top: 5px;font-weight: bolder;font-size: 23px;text-align: center;line-height: 37px;
+    border: 0px;cursor: pointer;color: white;background: url(../../../static/images/userIndex/menu-row-tail.gif) center bottom repeat-x;
+}
+.left-menu .my-selected{background: white; color: #646458;}
+/*----左侧菜单  end------*/
+.search-fieldset select{ float: right; font-size:14px; border: 2px solid #ffa12d; height: 30px;}
+.search-fieldset .issue-service-order-date{ float: right; font-size:14px; border: 2px solid #ffa12d; height: 30px;}
+.search-fieldset .issue-service-order-date input{height: 28px;border:0;font-size: 18px;}
+/***** search form start *****/
+.search-fieldset {width: 960px;margin: 0px auto; overflow:hidden; padding-top: 10px;}
+fieldset .search-field {padding:0px 10px 0 0;float:right;width:380px;height:30px;position:relative;display:block;overflow:hidden;}
+fieldset .search-field input {
+    width:275px;font-size:14px;	padding:5px 5px 5px 5px;font-family:Arial, Helvetica, sans-serif;
+    color:#646458; border-color: #ffa12d;outline:none;background:url(../../../static/images/userIndex/search-bg.jpg) 0 0 no-repeat;
+}
+fieldset .search-field .search-title{float: right;margin:0 60px 0 0;}
+fieldset .search-field span {font-size: 20px;line-height: 30px;}
+fieldset .search-field .deal-money {width:55px;}
+.search-fieldset select, .search-fieldset .deal-type{ margin-right: 20px;}
+.search-button{background-color: #ffa12d;line-height: 30px;width: 70px;margin: -30px -10px 0 auto;border: 0px;color: white;font-weight: bolder;font-size: 20px;cursor: pointer;}
+.search-fieldset .service-status, .search-fieldset .deal-type{float: right;font-size: 20px;}
+.search-fieldset .service-status span, .search-fieldset .deal-type span{ margin-right: 10px;line-height: 30px;cursor: pointer;}
+.search-fieldset .service-status .service-status-selected , .search-fieldset .deal-type .deal-type-selected{border-bottom: 3px solid #ffa12d;color: #ffa12d;font-weight: bolder;}
+/***** search form end *****/
+/*----表格详情  start ------*/
+.middle-main .order-detail table{text-align: center; margin-top: 10px; background-color: white;}
+.middle-main .order-detail table td{border: 2px solid #EFEFEF;vertical-align: middle;}.order-detail table tfoot { background: #ffa12d; color: white;}
+.order-detail table thead, .order-detail table tbody, .order-detail table tfoot {text-align: center;line-height: 37px; font-weight: bolder;}
+.order-detail table thead{ font-size: 20px;}.order-detail table tbody,.order-detail table tfoot {font-size: 16px;}
+.order-detail table tbody{overflow-x: scroll;}
+/* .fixed-column{position:relative;width:160px;z-index:10;background-color:#ffa12d;right:238px;color:white;} */
+.btn-done-order{background-color:#ffa12d;border:0;color:white;font-weight:bolder;font-size:20px;cursor:pointer;vertical-align:middle;padding-top:0px;}
+/*----表格详情  end ------*/
+/*---------分页工具栏   start--------*/
+.page-toolbar{float: right; margin-right: 50px;/*  margin-top: -65px; */}
+.page-toolbar ol li{padding: 5px; font-weight: bolder; font-size: 18px;float:left;}
+.page-toolbar .have{ color: white; border-radius: 6px; cursor: pointer;background: url(../../../static/images/userIndex/menu-row-tail.gif) center bottom repeat-x;}
+.page-toolbar .nohave{ color: #808080; border-radius: 6px; }
+/*---------分页工具栏    end--------*/
+/*---------我的余额  start--------*/
+.my-money{margin-top: 20px;font-size: 20px;float: left;margin-left: 38px;}
+.my-money span{color: #ffa12d;font-weight: bolder;}
+/*---------我的余额  end--------*/
+#myDealSearch, #myDealDetail, #myMoney, #dealDetailPageToolbar,#robServiceOrderSearch,#robServicePageToolbar{display: none;}

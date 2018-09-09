@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UtilMapper">
+	
+	<!-- 新增 -->
+	<insert id="insertObject" parameterType="java.lang.String">
+		${_parameter}
+	</insert>
+	
+	<!-- 用户交易日志记录列表 -->
+	<select id="userDealslistPage" parameterType="page" resultType="pd">
+		SELECT DUSER,DTYPE,DAMOUNT,CREATEDATE,DREMARK FROM cor_user_deal WHERE 1=1 
+		<if test="pd.DEAL_TYPE != null and pd.DEAL_TYPE != ''">
+			and DTYPE = #{pd.DEAL_TYPE}
+		</if>
+		<if test="pd.S_AMOUNT != null and pd.S_AMOUNT != ''">
+			and DAMOUNT &gt; #{pd.S_AMOUNT}
+		</if>
+		<if test="pd.E_AMOUNT != null and pd.E_AMOUNT != ''">
+			and DAMOUNT &lt; #{pd.E_AMOUNT}
+		</if>
+		AND DUSER = #{pd.DUSER} AND LEFT(CREATEDATE,7) = #{pd.DEALMONTH} 
+		order by CREATEDATE DESC
+	</select>
+	
+</mapper>

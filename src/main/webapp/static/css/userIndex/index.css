@@ -1,0 +1,28 @@
+/*服务类型和地区选择*/
+.service-type-distance{width: 960px; border-radius: 6px; border:0px solid #333; box-shadow:inset 0 0 5px 5px #ccc;margin:0px auto; font-size: 14px; font-weight: bold;
+-moz-box-shadow: inset 0 0 5px 5px #ccc; -o-box-shadow: inset 0 0 5px 5px #ccc; -webkit-box-shadow: inset 0 0 5px 5px #ccc;}
+.service-type, .service-distance{margin: 5px 17px 0px 90px;}
+.service-type a, .service-distance a{padding: 0px 10px; line-height: 22px;}
+.service-type a:hover, .service-distance a:hover{background-color: #d7ab75;color: white;}
+.service-category{float: left;margin-left: 15px;}.default-type{background-color: #d7ab75;color: white;}
+/* 服务列表 */
+.service-list{width: 960px; border-radius: 6px; border:3px solid #d7ab75; margin:15px auto 0px auto; background-color: white;}
+.service-info{margin: 10px 10px 0px 15px;position:relative;border: 1px dotted #d7ab75;}
+.service-info img{float: left; cursor: pointer;width: 99px;height: 99px;}
+.service-info ul{position:relative;font-size: 16px;margin: 0 auto 5px 110px;height: 97px;padding-top: 5px;}
+.service-info ul li{padding-top: 5px;}.service-title{margin-left: 10px;cursor: pointer;color: #5f431b;font-size: 16px;font-weight: bold;}
+.grab-order {width:100px; position:absolute; top:26px; text-align:right;right: 15px;}
+.btn-grab-order{width: 100px;cursor:pointer;line-height: 38px;text-align: center;font-weight: bold;font-size: 16px;color: #fff;text-shadow:1px 1px 1px #333;border-radius: 5px;margin:0 20px 20px 0;position: relative;overflow: hidden;border:1px solid #b42323;box-shadow: 0 1px 2px #e99494 inset,0 -1px 0 #954b4b inset,0 -2px 3px #e99494 inset;background: -webkit-linear-gradient(top,#d53939,#b92929);background: -moz-linear-gradient(top,#d53939,#b92929);background: linear-gradient(#d53939,#b92929);background: repeating-linear-gradient(top,#d53939,#b92929);}
+/*分页菜单*/
+.navigation {width: 960px;margin: 20px auto 0px auto;}.wp-paginate {padding:0;margin:0;float: right;}
+.wp-paginate li {float:left;list-style:none;margin:2px; padding:0;}
+.wp-paginate a {margin:0 2px;line-height:25px;text-align:center;text-decoration:none;border-radius:21px;-moz-border-radius:21px;-webkit-border-radius: 21px;float:left;min-height:25px;min-width:25px;color:#858585;border:2px #e3e3e3 solid;font-size:16px;}
+/* .wp-paginate a:hover {border:2px #d7ab75 solid;color:#262626;} */
+.wp-paginate .current {margin:0 2px;line-height:24px;text-align:center;text-decoration:none;border-radius:21px;-moz-border-radius:21px;-webkit-border-radius: 21px;float:left;font-weight: bold; min-height:24px;min-width:24px;color:#262626;border:2px #d7ab75 solid;font-size:16px;}
+.wp-paginate .page {margin:0;padding:0;}
+/***** search form start *****/
+.search-fieldset {width: 960px;	margin: 10px auto; overflow:hidden;}
+fieldset .search-field {padding:0px 10px 0 0;float:right;width:380px;height:30px;position:relative;display:block;overflow:hidden;}
+fieldset .search-field input { width:300px;font-size:18px;padding:5px 5px 5px 5px;font-family:Arial, Helvetica, sans-serif;color:#646458;float: right;	border-color: #ffa12d;margin:0 60px 0 0;outline:none;background:#ffffff;}
+.search-button{float: right;cursor:pointer;background-color: #ffa12d;line-height: 31px;width: 70px;margin: -32px -8px 0 auto;border: 0px;color: white;font-size: 22px;font-weight: bolder;}
+/***** search form end *****/

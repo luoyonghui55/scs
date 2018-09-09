@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>加入我们</title>
+    <meta charset="utf-8">
+<link rel="shortcut icon" href="static/images/userIndex/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/common.css">
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/joinUs.css">
+<script type="text/javascript" src="static/js/common/constant.js"></script>
+<script type="text/javascript" src="static/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="static/js/plugins/jquery/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<!--header-->
+<header id="pageHeader">
+    <div class="row-top">
+        <div class="main">
+            <div class="wrapper top-logo">
+                <a href="/scs">LGL</a>
+            </div>
+            <a style="display: none;" id="IamLogout" href="javascript:void()">退出</a>
+        </div>
+    </div>
+    <div class="menu-row">
+        <div class="menu-bg">
+            <div class="main">
+                <nav class="indent-left">
+                    <ul class="menu wrapper">
+                        <li><a href="/scs">热门服务</a></li>
+                        <li><a href="issueService.html">发布服务</a></li>
+                        <li id="Myself">
+                            <a href="userRegister.html" class="user-register">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册</a>
+                            <a href="userLogin.html" class="user-login">登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="active"><a href="joinUs.html">JOIN US</a></li>
+                        <li><a href="commonProblems.html">常见问题</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 页面主体部分 -->
+<div id="middleMain" class="middle-main">
+    <div id="mainTop" class="main-top">
+        <strong>亲爱的朋友：</strong>
+        <label>
+            <p>您有未实现的梦想吗？</p>
+            <p>您想实现财务自由吗？</p>
+            <p>您想拥有一份事业吗？</p>
+            <p>您有一周工作100小时以上的吃苦精神吗？</p>
+        </label>
+    </div>
+    <hr class="horizontal-line">
+    <div class="main-bottom">
+        <div class="main-left-bottom">
+            <div style="float: right; margin-right: 20%;">
+            <strong>诚邀合伙人：</strong>
+            <label>
+                <p>Java开发工程师</p>
+                <p>Android开发工程师</p>
+                <p>IOS开发工程师</p>
+                <p>html5开发工程师</p>
+                <p>市场推广业务员</p>
+            </label>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <td><img id="verticalImg" class="vertical-img" src="static/images/userIndex/menu-spacer.gif"></td>
+            </tr>
+        </table>
+        <div id="mainRightBottom" class="main-right-bottom">
+            <strong>联系方式：</strong>
+            <label>
+                <p>如果您诚心加入，</p>
+                <p>请将简历发送至以下邮箱：</p>
+                <p><h2>ijobvip@163.com，</h2></p>
+                <p>我们会尽快和您取得联系，</p>
+                <p>期待您的加入</p>
+            </label>
+        </div>
+    </div>
+</div>
+
+<!-- 页面尾部 -->
+<div id="footer" class="footer">
+    <div class="footer_info">
+        <div class="footer-care-us" style="margin-left: 0px;">
+            <strong>关注微信</strong><br/>
+            <!--微信扫一扫<br />-->
+            <img src="static/images/userIndex/weChat.png" />
+        </div>
+        <div class="footer-about-us">
+            <strong>关于九九</strong><br/>
+            <a href="aboutUs.html">关于我们</a><br/>
+            <a href="serviceAim.html">服务宗旨</a><br/>
+            <a href="feedback.html">意见反馈</a>
+        </div>
+        <div class="footer-contact-us">
+            <strong>联系我们</strong><br/>
+            <span>
+                客服电话：186-7078-7994<br />
+                服务邮箱：ijobvip@163.com<br />
+                公司地址：北京丰台区草桥东路
+            </span>
+        </div>
+        <div class="footer-record" style="float: right;">
+            京ICP备25697805号-4  京ICP证182661号  Copyright © 2015-2016
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="static/js/common/commonPage.js"></script>
+<script type="text/javascript" src="static/js/common/commonHeaderPage.js"></script>
+<script type="text/javascript">
+    //动态修改垂直分割线的高度
+    var middleMainHeight = I('middleMain').offsetHeight;
+    var mainTopHeight = I('mainTop').offsetHeight;
+    var verticalImgHeight = middleMainHeight - mainTopHeight + 21;
+    I('verticalImg').style.height = verticalImgHeight + 'px';//垂直分割线高度
+    //右下角的联系方式DIV的margin-top值
+    I('mainRightBottom').style.marginTop = (30 - verticalImgHeight) + 'px';
+</script>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>用户登录</title>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="static/images/userIndex/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/common.css">
+<link type="text/css" rel="stylesheet" href="static/css/userIndex/userLogin.css">
+<script type="text/javascript" src="static/js/plugins/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="static/js/common/constant.js"></script>
+<script type="text/javascript" src="static/js/plugins/encryption/scs_sha1.js"></script>
+<script type="text/javascript" src="static/js/common/dragCheck.js"></script>
+<script type="text/javascript" src="static/js/common/commonUtil.js"></script>
+<script type="text/javascript" src="static/js/userIndex/userLogin.js"></script>
+</head>
+<body>
+<!--header-->
+<header id="pageHeader">
+    <div class="row-top">
+        <div class="main">
+            <div class="wrapper top-logo">
+                <a href="/scs">LGL</a>
+            </div>
+        </div>
+    </div>
+    <div class="menu-row">
+        <div class="menu-bg">
+            <div class="main">
+                <nav class="indent-left">
+                    <ul class="menu wrapper">
+                        <li><a href="/scs">热门服务</a></li>
+                        <li><a href="issueService.html">发布服务</a></li>
+                        <li id="Myself">
+                            <a href="userRegister.html" class="user-register">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注册</a>
+                            <a href="login_login" class="user-login">登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li><a href="joinUs.html">JOIN US</a></li>
+                        <li><a href="commonProblems.html">常见问题</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- 用户登录 -->
+<div id="middleMain" class="content">
+    <div class="login-form">
+        <div class="username">
+            <input type="text" id="userName" placeholder="手机号码/Email" autocomplete="on" />
+            <span class="user-icon icon">u</span>
+        </div>
+        <div class="password">
+            <input type="password" id="userPassword" placeholder="请输入密码" />
+            <span class="password-icon icon">p</span>
+        </div> 
+        <div class="account-control">
+            <!--<input type="checkbox" name="Remember me" id="Remember me" value="记住我" checked="checked" />
+            <label for="Remember me" data-on="c" class="check"></label>
+            <label for="Remember me" class="info">记住我</label>-->
+            <!-- 登录滑动验证 -->
+            <div class="mkeContentBox">
+                <!--效果html开始-->
+                <div id="drag"></div>
+                <script type="text/javascript">$('#drag').drag();</script>
+                <!--效果html结束--> 
+            </div>
+            <span id="errorPrompt"></span>
+            <button id="btnUserLogin">登录</button>
+        </div>
+        <!--<p class="not-registered">Not a registered user yet?<a>Sign up now!</a></p>-->
+    </div>
+</div>
+<!-- 页面尾部 -->
+<div id="footer" class="footer">
+    <div class="footer_info">
+        <div class="footer-care-us" style="margin-left: 0px;">
+            <strong>关注微信</strong><br/>
+            <!--微信扫一扫<br />-->
+            <img src="static/images/userIndex/weChat.png"/>
+        </div>
+        <div class="footer-about-us">
+            <strong>关于九九</strong><br/>
+            <a href="aboutUs.html">关于我们</a><br/>
+            <a href="serviceAim.html">服务宗旨</a><br/>
+            <a href="feedback.html">意见反馈</a>
+        </div>
+        <div class="footer-contact-us">
+            <strong>联系我们</strong><br/>
+	        <span>
+			            客服电话：186-7078-7994<br />
+			            服务邮箱：ijobvip@163.com<br />
+			            公司地址：北京丰台区草桥东路
+	        </span>
+        </div>
+        <div class="footer-record" style="float: right;">
+            京ICP备25697805号-4  京ICP证182661号  Copyright © 2015-2016
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="static/js/common/commonPage.js"></script>
+<script type="text/javascript" src="static/js/common/commonHeaderPage.js"></script>
+</body>
+</html>
